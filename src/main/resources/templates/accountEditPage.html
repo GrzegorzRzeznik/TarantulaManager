@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Edit Farm</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<style>
+    .form-popup {
+        display: none;
+        position: center;
+        border: 3px solid #f1f1f1;
+    }
+</style>
+<body>
+<div th:replace="/fragments/header :: headerFragment"></div>
+<br>
+<div class="container" style="width: 40%; margin: auto">
+    <div class="row" style="width: 40%; margin: auto">
+        <table class="table">
+            <tr>
+                <td>First name:</td>
+                <td th:text="${user.firstName}"></td>
+            </tr>
+            <tr>
+                <td>Last name:</td>
+                <td th:text="${user.lastName}"></td>
+            </tr>
+            <tr>
+                <td>e-mail:</td>
+                <td th:text="${user.email}"></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td th:text="${user.city}"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center">
+                    <button onclick="openForm('edit_account')">Edit Account</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center">
+                    <button onclick="openForm('change_password')">Change Password</button>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="row" style="text-align: center; width: 40%; margin: auto">
+        <div class="form-popup" id="edit_account">
+            <form class="form-signin" th:object="${user}" action="/editAccount" method="post">
+                <label for="firstName">Name: </label><br>
+                <input name="firstName" type="text" id="firstName" size="16" th:value="${user.firstName}" required><br>
+                <label for="lastName">Last name: </label><br>
+                <input name="lastName" type="text" id="lastName" size="16" th:value="${user.lastName}" required><br>
+                <label for="email">email: </label><br>
+                <input name="email" type="text" id="email" size="16" th:value="${user.email}" required><br>
+                <label for="city">City: </label><br>
+                <input name="city" type="text" id="city" size="16"  th:value="${user.city}" required><br><br>
+                <button type="submit">Submit changes</button>
+                <button type="reset" onclick="closeForm('edit_account')">Cancel</button>
+            </form>
+        </div>
+        <div class="form-popup" id="change_password">
+            <form class="form-signin" id="name_form" th:object="${user}" action="/changePassword" method="post">
+                <fieldset>
+                    <label for="currentPassword">Current Password: </label><br>
+                    <input name="currentPassword" type="text" id="currentPassword" size="20" required><br>
+                    <label for="newPassword">New Password: </label><br>
+                    <input name="newPassword" type="text" id="newPassword" size="20" required><br>
+                    <label for="confirmPassword">Confirm Password: </label><br>
+                    <input name="confirmPassword" type="text" id="confirmPassword" size="20" required><br><br>
+                    <button type="submit">Submit changes</button>
+                    <button type="reset" onclick="closeForm('change_password')">Cancel</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="fragments/footer :: footer"></div>
+<script>
+    function openForm(name) {
+        document.getElementById(name).style.display = "block";
+    }
+
+    function closeForm(name) {
+        document.getElementById(name).style.display = "none";
+    }
+
+    var password = document.getElementById("newPassword")
+        , confirm_password = document.getElementById("confirmPassword");
+
+    function validatePassword(){
+        if(password.value !== confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>
+</body>
+</html>

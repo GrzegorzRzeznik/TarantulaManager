@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Spider</title>
+    <div th:replace="fragments/header :: header-css"/>
+
+    <script th:inline="javascript">
+        var genusObject = [[${genusSpeciesMap}]];
+
+        window.onload = function () {
+            var genusSel = document.getElementById("genus");
+            var speciesSel = document.getElementById("species");
+
+            for (var x in genusObject) {
+                genusSel.options[genusSel.options.length] = new Option(x, x);
+            }
+            genusSel.onchange = function () {
+                speciesSel.length = 1;
+                var species = genusObject[this.value];
+                for (var i = 0; i < species.length; i++) {
+                    speciesSel.options[speciesSel.options.length] = new Option(species[i], species[i]);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div th:replace="/fragments/header :: headerFragment"></div>
+    <form class="form-signin" action="/spiders" method="post">
+        <select name="status" required>
+            <option th:value="''"
+                    th:text="'Choose status'">
+
+            </option>
+            <option th:each="s : ${statusList}"
+                    th:value="${s}"
+                    th:text="${s.name()}">
+            </option>
+        </select><br>
+        <input name="name" placeholder="Name" required><br>
+
+        <select name="genus" id="genus" required>
+            <option value="" selected="selected">Select genus</option>
+        </select>
+        <select name="species" id="species" required>
+            <option value="" selected="selected">Select species</option>
+        </select><br>
+
+        <input type="date" name="acquisitionDate" placeholder="Acquisition date" required><br>
+        <select name="sex" required>
+            <option th:value="''"
+                    th:text="'Choose sex'">
+
+            </option>
+            <option th:each="s : ${sexList}"
+                    th:value="${s}"
+                    th:text="${s.name()}">
+            </option>
+        </select><br>
+        <select name="temperament" required>
+            <option th:value="''"
+                    th:text="'Choose temperament'">
+
+            </option>
+            <option th:each="t : ${temperamentList}"
+                    th:value="${t}"
+                    th:text="${t.name()}">
+            </option>
+        </select><br>
+        <input type=hidden name="farmID" th:value="${farmID}">
+        <select name="venomPotency" required>
+            <option th:value="''"
+                    th:text="'Choose venom potency'">
+
+            </option>
+            <option th:each="v : ${venomPotencyList}"
+                    th:value="${v}"
+                    th:text="${v.name()}">
+            </option>
+        </select><br>
+        <select name="type" required>
+            <option th:value="''"
+                    th:text="'Choose type'">
+
+            </option>
+            <option th:each="s : ${typeList}"
+                    th:value="${s}"
+                    th:text="${s.name()}">
+            </option>
+        </select><br>
+        <button>Add Spider</button>
+    </form>
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

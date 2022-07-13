@@ -1,0 +1,15 @@
+package rzeznik.grzegorz.exotic_farm.animal;
+
+public enum Temperament {
+    DOCILE,
+    AGGRESSIVE,
+    SKITTISH,
+    DEFENSIVE,
+    SEMI_AGGRESSIVE,
+    SKITTISH_AND_AGGRESSIVE,
+    SKITTISH_AND_SEMI_AGGRESSIVE,
+    SKITTISH_AND_DOCILE,
+    SKITTISH_AND_DEFENSIVE,
+    AGGRESSIVE_AND_DEFENSIVE,
+    OTHER
+}

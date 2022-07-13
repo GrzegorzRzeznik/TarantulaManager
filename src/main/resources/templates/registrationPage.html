@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <div th:replace="/fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="/fragments/header :: headerFragment">
+</div>
+<form class="form-signin" th:object="${registrationData}" action="/registration" method="post">
+    <label for="fn">First Name</label>
+    <input class="form-control" th:field="*{firstName}" id="fn">
+    <p class="error" th:if="${firstNameValidationResult}" th:text="${firstNameValidationResult}"></p>
+    <br>
+    <label for="lname">Last Name</label>
+    <input class="form-control" th:field="*{lastName}" id="lname">
+    <br>
+    <label for="username">Username</label>
+    <input class="form-control" th:field="*{username}" id="username">
+    <br>
+    <label for="city">City</label>
+    <input class="form-control" th:field="*{city}" id="city">
+    <br>
+    <label for="email">E-mail</label>
+    <input class="form-control" th:field="*{email}" id="email">
+    <p class="error" th:if="${emailAlreadyExists}" th:text="${emailAlreadyExists}"></p>
+    <br>
+    <label for="pass">Password</label>
+    <input class="form-control" th:field="*{password}" id="pass">
+    <br>
+    <button class="btn btn-lg btn-primary btn-block">Register</button>
+</form>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

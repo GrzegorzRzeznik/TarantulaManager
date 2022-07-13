@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exotic Farm</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body class="text-center">
+<div th:replace="/fragments/header :: headerFragment"></div>
+<main role="main">
+<div class="jumbotron">
+    <div th:if="!${@userContextService.userName()}" class="container">
+        <h1 class="display-3">Hello!</h1>
+        <p>Welcome to Exotic Farm, please log in to use the service.</p>
+        <p><a class="btn btn-primary btn-lg" href="/login" role="button">Log in &raquo;</a></p>
+    </div>
+    <div th:if="${@userContextService.userName()}" class="container">
+        <h1 class="display-3">Hello!</h1>
+        <p><a class="btn btn-primary btn-lg" href="/farms" role="button">Manage farms &raquo;</a></p>
+        <p><a class="btn btn-primary btn-lg" href="/editAccount" role="button">Edit profile &raquo;</a></p>
+        <p><a class="btn btn-primary btn-lg" href="/logout" role="button">Logout &raquo;</a></p>
+    </div>
+</div>
+</main>
+</body>
+<footer>
+    <div th:replace="fragments/footer :: footer"></div>
+</footer>
+</html>

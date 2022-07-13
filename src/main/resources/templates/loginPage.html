@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <div th:replace="/fragments/header :: header-css"></div>
+</head>
+<body class="text-center">
+<div th:replace="/fragments/header :: headerFragment"></div>
+
+<div class="container">
+    <form class="form-signin" action="/login-process" method="post">
+        <p class="alert alert-danger" th:if="${param.error}">Invalid login or password</p><br>
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        <input class="form-control" name="username" placeholder="Login"><br>
+        <input class="form-control" type="password" name="password" placeholder="Password"><br>
+        <button class="btn btn-lg btn-primary btn-block">Login</button>
+    </form>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

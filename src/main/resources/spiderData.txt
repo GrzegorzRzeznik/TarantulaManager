@@ -1,0 +1,20 @@
+Acanthoscurria
+    geniculata,Brasilian White Knee Taranula,24-28,70-80,true,BRAZIL
+Brachypelma
+    albiceps,Mexican Golden Red Rump,22-27,60-70,true,MEXICO
+    boehmei,Mexican Fire Leg,24-28,50-60,true,MEXICO
+    emilia,Mexican Red Leg,25-27,50-60,true,MEXICO
+    hamorii,Mexican Redknee,25-26,60-65,true,MEXICO
+Chromatopelma
+    cyaneopubescens,Green Bottle Blue,25-28,40-50,true,VENEZUELA
+Grammostola
+    pulchra,Brasilian Black,24-27,70,true,BRAZIL
+    pulchripes,Chaco Golden Knee,22-24,70,true,ARGENTINA
+Lasiodora
+    parachybana,Brasilian Salmon Pink Birdeater,26-28,70,true,BRAZIL
+Monocentropus
+    balfouri,Socotra Island Blue Baboon,25-26,65-90,false,SOCOTRA
+Psalmopoeus
+    cambridgei,Trinidad Chevron,26-30,75-80,false,TRINIDAD
+    irminia,Venezuelan Sun Tiger,25-28,75,false,VENEZUELA
+    reduncus,Costarican Orange,22-26,70-75,false,COSTA_RICA

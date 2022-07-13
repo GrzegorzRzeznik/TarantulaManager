@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Spider Details</title>
+    <div th:replace="fragments/header :: header-css"/>
+    <style>
+        .body {
+            display: block;
+            max-height: 500px;
+            width: 280px;
+            overflow: auto;
+        }
+
+        .head {
+            display: block;
+            width: 280px;
+        }
+
+    </style>
+</head>
+<body class="text-center">
+<div th:replace="/fragments/header :: headerFragment"></div>
+<br>
+
+<div class="row" style="width: 80%; margin: auto">
+    <div class="col" th:object="${spider}">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-danger" th:text="'Name: ' +${spider.name}"></li>
+            <li class="list-group-item list-group-item-danger"
+                th:text="'Species: ' +${spider.infoDTO.genus}+' '+${spider.infoDTO.species}"></li>
+            <li class="list-group-item list-group-item-danger"
+                th:text="'Common name: ' +${spider.infoDTO.getCommonName()}"></li>
+            <li class="list-group-item list-group-item-danger" th:text="'Sex: ' +${spider.sex}"></li>
+        </ul>
+    </div>
+    <div class="col" th:object="${spider}">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-danger" th:text="'Status: ' +${spider.status}"></li>
+            <li class="list-group-item list-group-item-danger"
+                th:text="'Temperament: ' +${spider.temperament}"></li>
+            <li class="list-group-item list-group-item-danger" th:text="'Type: ' +${spider.type}"></li>
+            <li class="list-group-item list-group-item-danger"
+                th:text="'Venom potency: ' +${spider.venomPotency}"></li>
+        </ul>
+    </div>
+    <div class="col" th:object="${spider}">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-danger"
+                th:text="'Prefered temperature: ' +${spider.infoDTO.preferredTemperature}"></li>
+            <li class="list-group-item list-group-item-danger"
+                th:text="'Prefered humidity: ' +${spider.infoDTO.getPreferredHumidity()}"></li>
+            <li class="list-group-item list-group-item-danger"
+                th:text="'Urticating hair: ' +${spider.infoDTO.urticatingHairPresent}"></li>
+            <li class="list-group-item list-group-item-danger"
+                th:text="'Country of origin: ' +${spider.infoDTO.country}"></li>
+        </ul>
+    </div>
+
+</div>
+<br>
+<div class="row" style="width: 80%; margin: auto">
+    <div class="col">
+        <div class="head">
+            <div>Feeding</div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="body">
+            <table class="table">
+                <tbody>
+                <tr class="table-success" th:each="f: ${feedingList}">
+                    <td th:text="${f.date}">User</td>
+                    <td th:text="${f.userDTO.username}">Date</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="head">
+            <div>Substrate change</div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="body">
+            <table class="table">
+                <tbody>
+                <tr class="table-primary" th:each="sc: ${substrateChangeList}">
+                    <td th:text="${sc.date}">User</td>
+                    <td th:text="${sc.userDTO.username}">Date</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="head">
+            <div>Rehouse</div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="body">
+            <table class="table">
+                <tbody>
+                <tr class="table-primary" th:each="r: ${rehouseList}">
+                    <td th:text="${r.date}">User</td>
+                    <td th:text="${r.userDTO.username}">Date</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col">
+        <div class="head">
+            <div>Molts</div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="body">
+            <table class="table">
+                <tbody th:if="${moltsNumber}!=0">
+                <tr class="table-warning" th:each="i: ${#numbers.sequence(moltsNumber, 1)}">
+                    <td th:text="${i}">No</td>
+                    <td th:text="${spider.moltsDTOList[i -1].date}">Date</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

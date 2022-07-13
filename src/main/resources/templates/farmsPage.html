@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Farms</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body class="text-center">
+<div th:replace="/fragments/header :: headerFragment"></div>
+<div style="width: 20%; margin: auto">
+    <div class="container">
+        <div class="row" style="margin: auto">Farms with admin privileges</div>
+        <div class="row" style="margin: auto">
+            <table title="Farms with admin privileges" border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Delete</th>
+                    <th>Edit</th>
+                </tr>
+                <tr th:each="f : ${farmsWhereAdmin}">
+                    <td th:text="${f.id}">ID</td>
+                    <td th:text="${f.name}">Name</td>
+                    <td>
+                        <form onSubmit="return confirm('Are you sure you wish to delete?');" th:object="${f}"
+                              th:action="@{/farms/delete}" method="post">
+                            <input type="hidden" name="id" th:value="${f.id}"/>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                    <td><a th:href="@{/farms/{id}(id=${f.id})}" class="btn btn-primary btn-block">Edit Farm</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <br>
+    <div class="container">
+        <div class="row" style="margin: auto">Farms without admin privileges</div>
+        <div class="row" style="margin: auto">
+            <table title="Farms without admin privileges" border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+                <tr th:each="f : ${farmsWhereUser}">
+                    <td th:text="${f.id}">ID</td>
+                    <td th:text="${f.name}">Name</td>
+                    <td><a th:href="@{/farms/{id}(id=${f.id})}" class="btn btn-primary btn-block">Edit Farm</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <br>
+    <div class="container">
+        <div class="row" style="margin: auto">
+            <form action="/addFarm" method="post">
+                <label>
+                    <input name="farmName" placeholder="Farm name" required>
+                </label><br>
+                <button>Add farm</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<footer>
+    <div th:replace="fragments/footer :: footer"></div>
+</footer>
+</html>

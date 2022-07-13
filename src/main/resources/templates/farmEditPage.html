@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Edit Farm</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body class="text-center">
+<div th:replace="/fragments/header :: headerFragment"></div>
+<br>
+<div style="width: 90%; margin: auto">
+    <div th:if="${isAdmin}">
+        <div class="row">
+            <div class="col">
+                <form th:action="@{/farms/{id}/addUser/(id=${farm.id})}" method="post">
+                    <label>
+                        <input name="username" placeholder="username" required>
+                    </label><br>
+                    <button class="btn btn-danger">Add User</button>
+                </form>
+            </div>
+            <div class="col">
+                <form th:action="@{/farms/{id}/addAdmin/(id=${farm.id})}" method="post">
+                    <label>
+                        <input name="username" placeholder="username" required>
+                    </label><br>
+                    <button class="btn btn-danger">Add Admin</button>
+                </form>
+            </div>
+            <br>
+            <div class="col">
+                <form th:action="@{/farms/{id}/addSpider/(id=${farm.id})}" method="post">
+                    <button class="btn btn-primary">Add Spider</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <br>
+    <div class="row" style="width: 80%; margin: auto">
+        <div>Spiders</div>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Genus</th>
+                <th>Species</th>
+                <th>Acquisition Date</th>
+                <th>Sex</th>
+                <th>Temperament</th>
+                <th>Venom potency</th>
+                <th>Type</th>
+                <th>Last fed</th>
+                <th>Last substrate change</th>
+                <th>Last rehouse</th>
+                <th>Details</th>
+                <th th:if="${isAdmin}">Delete spider</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="s: ${spiderList}">
+                <td th:text="${s.id}">ID</td>
+                <td th:text="${s.status}">Status</td>
+                <td th:text="${s.name}">Name</td>
+                <td th:text="${s.infoDTO.genus}">Genus</td>
+                <td th:text="${s.infoDTO.species}">Species</td>
+                <td th:text="${s.acquisitionDate}">Acquisition Date</td>
+                <td th:text="${s.sex}">Sex</td>
+                <td th:text="${s.temperament}">Temperament</td>
+                <td th:text="${s.venomPotency}">Venom potency</td>
+                <td th:text="${s.type}">Type</td>
+                <td th:text="${recentFeeding.get(s)}">Last fed</td>
+                <td th:text="${recentSubstrateChange.get(s)}">Last substrate change</td>
+                <td th:text="${recentRehouse.get(s)}">Last rehouse</td>
+                <td>
+                    <a th:href="'/farms/'+${farm.id}+'/spiders/'+${s.id}">Details</a>
+                </td>
+                <td th:if="${isAdmin}">
+                    <form onSubmit="return confirm('Are you sure you wish to delete?');" th:object="${s}"
+                          th:action="@{'/farms/'+${farm.id}+'/deleteSpider/'}"
+                          method="post">
+                        <input type=hidden name="spiderID" th:value="${s.id}"/>
+                        <button class="btn btn-danger btn-block">Delete</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:object="${farm}" th:action="@{'/farms/'+${farm.id}+'/spiders/'+${s.id} +'/care'}"
+                          method="post">
+                        <input type=hidden name="careType" value="FEEDING"/>
+                        <button class="btn btn-success btn-block">Feed</button>
+                    </form>
+                    <form th:object="${farm}" th:action="@{'/molts'}" method="post">
+                        <input type=hidden name="spiderId" th:value="${s.id}"/>
+                        <input type=hidden name="farmId" th:value="${farm.id}"/>
+                        <button class="btn btn-warning btn-block">Molt</button>
+                    </form>
+                    <form th:object="${farm}" th:action="@{'/farms/'+${farm.id}+'/spiders/'+${s.id} +'/care'}"
+                          method="post">
+                        <input type=hidden name="careType" value="SUBSTRATE_CHANGE"/>
+                        <button class="btn btn-primary btn-block">Substrate</button>
+                    </form>
+                    <form th:object="${farm}" th:action="@{'/farms/'+${farm.id}+'/spiders/'+${s.id} +'/care'}"
+                          method="post">
+                        <input type=hidden name="careType" value="REHOUSE"/>
+                        <button class="btn btn-primary btn-block">Rehouse</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>
